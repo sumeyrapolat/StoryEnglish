@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="textcolor">#FFFFFF</color>
+    <color name="lightText">#333333</color>
+    <color name="darkText">#666666</color>
     <color name="backgraoundcolor">#000000</color>
     <color name="words">#F9F9F9</color>
     <color name="story_header">#A4A4A4</color>
