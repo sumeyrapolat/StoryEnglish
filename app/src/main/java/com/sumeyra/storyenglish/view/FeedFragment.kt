@@ -55,6 +55,8 @@ class feedFragment: Fragment() {
             //upload fragment a geçilsin
             findNavController().navigate(R.id.action_feedFragment_to_uploadFragment)
 
+        }else if(item.itemId == R.id.profile){
+            findNavController().navigate(R.id.action_feedFragment_to_profileFragment)
         }
         return super.onOptionsItemSelected(item)
 
