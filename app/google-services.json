@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "119829979989",
+    "project_id": "englishstory-d61a0",
+    "storage_bucket": "englishstory-d61a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119829979989:android:da1aa9d4dff59cbd6a45dc",
+        "android_client_info": {
+          "package_name": "com.sumeyra.storyenglish"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQisqzdyrc7ZjzKJQ9ZVrvUfb5UdCG-eE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

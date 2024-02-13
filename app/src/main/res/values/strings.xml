@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">StoryEnglish</string>
+    <string name="write_story">Write Story</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="sign_in">Sign In</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="user_email">User Email</string>
+    <string name="already_have_an_account">Already have an account</string>
+    <string name="enter_your_words">Enter your words</string>
+    <string name="enter_story_header">Enter story header</string>
+    <string name="enter_your_story">Enter your story</string>
+    <string name="share_story">Share Story</string>
+</resources>

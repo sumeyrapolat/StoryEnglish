@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="textcolor">#FFFFFF</color>
+    <color name="backgraoundcolor">#000000</color>
+    <color name="words">#F9F9F9</color>
+    <color name="story_header">#A4A4A4</color>
+    <color name="example">#F0F0F0</color>
+    <color name="week_header">#F2F2F2</color>
+    <color name="firstList">#E6E6E6</color>
+    <color name="buttoncolor">#424242</color>
+    <color name="buttontext">#EEEEEE</color>
+</resources>
