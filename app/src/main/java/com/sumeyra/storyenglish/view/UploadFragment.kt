@@ -57,6 +57,9 @@ class uploadFragment : Fragment() {
         val userName = auth.currentUser!!.displayName.toString()
         val date = Timestamp.now()
 
+        // for profile
+        val email = auth.currentUser!!.email.toString()
+
         //paylaşacağım değerleri bir hashmap içinde tutuyorum
 
         val postMap = hashMapOf<String, Any>()
@@ -66,6 +69,7 @@ class uploadFragment : Fragment() {
         postMap.put("story", story)
         postMap.put("userName", userName)
         postMap.put("date", date)
+        postMap.put("userEmail",email)
 
         db.collection("Posts").add(postMap).addOnCompleteListener { task->
             if (task.isSuccessful){
