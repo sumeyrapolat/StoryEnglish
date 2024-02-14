@@ -1,5 +1,6 @@
 package com.sumeyra.storyenglish.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import com.sumeyra.storyenglish.adapter.FeedAdapter
 import com.sumeyra.storyenglish.adapter.ProfileAdapter
 import com.sumeyra.storyenglish.databinding.ProfileFragmentBinding
 import com.sumeyra.storyenglish.model.Post
+import com.sumeyra.storyenglish.model.Profile
 
 class ProfileFragment : Fragment() {
 
@@ -28,7 +30,7 @@ class ProfileFragment : Fragment() {
     private lateinit var storage : FirebaseStorage
 
     private lateinit var adapter : ProfileAdapter
-    val postProfileList = ArrayList<Post>()
+    val postProfileList = ArrayList<Profile>()
 
 
 
@@ -54,17 +56,17 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getUser()
         binding.profileImage.setOnClickListener { selectPhoto(it) }
+        getUser()
+        getStoryFromFirebase()
+
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.profileRecyclerview.layoutManager = layoutManager
         adapter = ProfileAdapter(postProfileList)
         binding.profileRecyclerview.adapter = adapter
 
-        getUser()
 
-        getStoryFromFirebase()
 
     }
 
@@ -73,46 +75,43 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getUser(){
-   //burada kullanıcı adı ve e postasını almam lazım
-        //daha sonra kullanıcı görselini alacağım
-        //daha sonra kullanıcının yazdığı hikayeleri kendi sayfasında recycler row içinde göstereceğim
+        val currentUserEmail = auth.currentUser!!.email
+        val currentUserName = auth.currentUser!!.displayName
 
+        binding.profileUserEmailText.text = currentUserEmail
+        binding.profileUserNameText.text = currentUserName
     }
-    private fun getStoryFromFirebase(){
-        // sadece currentUser a göre çekilecek
 
-        // Mevcut kullanıcının UID'sini al
-        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
 
-        // UID null değilse, Firestore sorgusunu filtreleyerek veri al
-        currentUserUid?.let { uid ->
-            db.collection("Posts")
-                .whereEqualTo("userId", uid) // "userId" alanı, Firestore'da her gönderinin sahibinin UID'sini içerir
-                .orderBy("date", Query.Direction.DESCENDING)
-                .addSnapshotListener { snapshot, error ->
-                    if (error != null) {
-                        val context: Context = requireContext()
-                        Toast.makeText(context, error.localizedMessage, Toast.LENGTH_SHORT).show()
-                    } else {
-                        if (snapshot != null && !snapshot.isEmpty) {
-                            val documents = snapshot.documents
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getStoryFromFirebase() {
+        db.collection("Posts").orderBy("date" , Query.Direction.DESCENDING).addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                val context: Context = requireContext()
+                Toast.makeText(context , error.localizedMessage, Toast.LENGTH_SHORT).show()
+            }else {
+                if (snapshot != null && !snapshot.isEmpty){
+                    val documents = snapshot.documents
 
-                            postProfileList.clear()
+                    postProfileList.clear()
 
-                            for (document in documents) {
-                                val userName = document.get("userName") as String
-                                val storyHeader = document.get("storyHeader") as String
-                                val story = document.get("story") as String
-                                val word = document.get("words") as String
+                    for (document in documents) {
 
-                                val downloadedPost = Post(userName, word, storyHeader, story)
-                                postProfileList.add(downloadedPost)
-                            }
+                        if (document.get("userEmail") == auth.currentUser!!.email){
+                            val storyHeader = document.get("storyHeader") as String
+                            val story = document.get("story") as String
+                            val word = document.get("words") as String
 
-                            adapter.notifyDataSetChanged()
+                            val downloadedPost = Profile( word, storyHeader,story)
+                            postProfileList.add(downloadedPost)
                         }
                     }
+
+                    adapter.notifyDataSetChanged()
                 }
+
+            }
         }
     }
+
 }

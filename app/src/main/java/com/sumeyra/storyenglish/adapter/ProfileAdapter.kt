@@ -7,7 +7,7 @@ import com.sumeyra.storyenglish.databinding.ProfileRowBinding
 import com.sumeyra.storyenglish.model.Post
 import com.sumeyra.storyenglish.model.Profile
 
-class ProfileAdapter(val profilePost: ArrayList<Post>) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
+class ProfileAdapter(val profilePost: ArrayList<Profile>) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
     class ProfileViewHolder( val binding: ProfileRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -22,8 +22,7 @@ class ProfileAdapter(val profilePost: ArrayList<Post>) : RecyclerView.Adapter<Pr
     }
 
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
-        holder.binding.profileUsername.text = profilePost.get(position).userName
-        holder.binding.profileStoryHeader.text = profilePost.get(position).userName
+        holder.binding.profileStoryHeader.text = profilePost.get(position).storyHeader
         holder.binding.profileStoryText.text = profilePost.get(position).story
         holder.binding.profileWordText.text = profilePost.get(position).words
     }

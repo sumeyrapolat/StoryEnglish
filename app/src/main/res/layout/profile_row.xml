@@ -11,20 +11,6 @@
     android:background="@drawable/rounded_border">
 
     <TextView
-        android:id="@+id/profileUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:text="User"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:textStyle="bold"
-        android:textColor="@color/darkText"
-        android:fontFamily="sans-serif-medium"
-        android:layout_marginTop="15dp">
-    </TextView>
-
-    <TextView
         android:id="@+id/profileWordText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +18,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:textColor="@color/lightText"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-italic"
         android:textStyle="italic"
         android:textSize="16sp">
