@@ -4,5 +4,5 @@ class Post(
     val userName : String,
     val words : String,
     val storyHeader : String,
-    val story : String
-    )
+    val story : String,
+)

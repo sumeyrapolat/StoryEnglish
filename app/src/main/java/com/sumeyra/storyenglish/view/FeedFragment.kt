@@ -98,7 +98,8 @@ class feedFragment: Fragment() {
         // burada veri çekmek işlmeleri için ayır bir fonk yaz
         db.collection("Posts").orderBy("date" , Query.Direction.DESCENDING).addSnapshotListener { snapshot, error ->
             if (error != null) {
-                Toast.makeText(requireContext() , error.localizedMessage, Toast.LENGTH_SHORT).show()
+                val context: Context = requireContext()
+                Toast.makeText(context , error.localizedMessage, Toast.LENGTH_SHORT).show()
             }else {
                 if (snapshot != null && !snapshot.isEmpty){
                         val documents = snapshot.documents
@@ -121,10 +122,4 @@ class feedFragment: Fragment() {
             }
         }
     }
-
-
-
-
-
-
 }

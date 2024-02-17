@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.storage
 import com.sumeyra.storyenglish.R
 import com.sumeyra.storyenglish.databinding.UploadFragmentBinding
 
@@ -24,11 +26,13 @@ class uploadFragment : Fragment() {
 
     private lateinit var auth : FirebaseAuth
     private lateinit var db : FirebaseFirestore
+    private lateinit var storage : FirebaseStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         db = Firebase.firestore
+        storage = Firebase.storage
     }
 
     override fun onCreateView(
@@ -60,8 +64,9 @@ class uploadFragment : Fragment() {
         // for profile
         val email = auth.currentUser!!.email.toString()
 
-        //paylaşacağım değerleri bir hashmap içinde tutuyorum
 
+
+        //paylaşacağım değerleri bir hashmap içinde tutuyorum
         val postMap = hashMapOf<String, Any>()
 
         postMap.put("words", words)
@@ -70,6 +75,7 @@ class uploadFragment : Fragment() {
         postMap.put("userName", userName)
         postMap.put("date", date)
         postMap.put("userEmail",email)
+
 
         db.collection("Posts").add(postMap).addOnCompleteListener { task->
             if (task.isSuccessful){
@@ -84,4 +90,6 @@ class uploadFragment : Fragment() {
 
 
     }
+
+
 }

@@ -1,9 +1,9 @@
 package com.sumeyra.storyenglish.adapter
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sumeyra.storyenglish.R
 import com.sumeyra.storyenglish.databinding.FeedRowBinding
 import com.sumeyra.storyenglish.model.Post
 
@@ -24,12 +24,15 @@ class FeedAdapter(val postList: ArrayList<Post>) : RecyclerView.Adapter<FeedAdap
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.binding.recyclerRowUsername.text = postList.get(position).userName
-        holder.binding.recyclerViewWordText.text = postList.get(position).words
-        holder.binding.recyclerViewStoryHeader.text = postList.get(position).storyHeader
-        holder.binding.recyclerViewStoryText.text = postList.get(position).story
-    }
+        val post = postList[position]
 
+        holder.binding.recyclerRowUsername.text = post.userName
+        holder.binding.recyclerViewWordText.text = post.words
+        holder.binding.recyclerViewStoryHeader.text = post.storyHeader
+        holder.binding.recyclerViewStoryText.text = post.story
+
+
+    }
 
 }
 
