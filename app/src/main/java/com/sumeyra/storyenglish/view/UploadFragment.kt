@@ -1,6 +1,7 @@
 package com.sumeyra.storyenglish.view
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,8 @@ class uploadFragment : Fragment() {
     private lateinit var db : FirebaseFirestore
     private lateinit var storage : FirebaseStorage
 
+    private var imageUrl: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
@@ -53,20 +56,37 @@ class uploadFragment : Fragment() {
 
     private fun shareStory(view: View){
 
-        //firestore a kaydetme istediğim verilerim
+        getImageUrl()
 
+
+    }
+
+    private fun getImageUrl(){
+        val imageReference = storage.reference
+        val uid = auth.currentUser!!.uid
+        val imageName = "profileImage.jpg"
+        val pathReference = imageReference.child("Images").child("UserPhoto").child(uid).child(imageName)
+
+        pathReference.downloadUrl.addOnSuccessListener {uri->
+            imageUrl = uri.toString()
+
+            addPostToFirestore()
+
+        }.addOnFailureListener { error->
+            println(error)
+        }
+
+    }
+
+    private fun addPostToFirestore() {
+        //postMap oluştur ve Firebase'e ekle
         val words = binding.wordsText.text.toString()
         val storyHeader = binding.storyHeader.text.toString()
         val story = binding.storyText.text.toString()
         val userName = auth.currentUser!!.displayName.toString()
         val date = Timestamp.now()
-
-        // for profile
         val email = auth.currentUser!!.email.toString()
 
-
-
-        //paylaşacağım değerleri bir hashmap içinde tutuyorum
         val postMap = hashMapOf<String, Any>()
 
         postMap.put("words", words)
@@ -74,21 +94,23 @@ class uploadFragment : Fragment() {
         postMap.put("story", story)
         postMap.put("userName", userName)
         postMap.put("date", date)
-        postMap.put("userEmail",email)
-
+        postMap.put("userEmail", email)
+        postMap.put("imageUrl", imageUrl!!)
 
         db.collection("Posts").add(postMap).addOnCompleteListener { task->
             if (task.isSuccessful){
-                //burada feed ekranına yönlendirme yapılabilir
+                // Burada feed ekranına yönlendirme yapılabilir
                 findNavController().navigate(R.id.action_uploadFragment_to_feedFragment)
             }
         }.addOnFailureListener { error->
             val context: Context = requireContext()
-            Toast.makeText(context, error.localizedMessage,Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(context, error.localizedMessage, Toast.LENGTH_SHORT).show()
         }
+    }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

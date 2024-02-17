@@ -2,6 +2,7 @@ package com.sumeyra.storyenglish.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -111,8 +112,9 @@ class feedFragment: Fragment() {
                             val storyHeader = document.get("storyHeader") as String
                             val story = document.get("story") as String
                             val word = document.get("words") as String
+                            val imageUrl = document.get("imageUrl") as String?
 
-                            val downloadedPost = Post(userName, word, storyHeader,story)
+                            val downloadedPost = Post(userName, word, storyHeader,story, imageUrl)
                             postList.add(downloadedPost)
                         }
 
