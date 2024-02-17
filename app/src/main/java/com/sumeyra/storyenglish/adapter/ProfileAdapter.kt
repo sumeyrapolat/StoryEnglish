@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sumeyra.storyenglish.databinding.ProfileRowBinding
-import com.sumeyra.storyenglish.model.Post
 import com.sumeyra.storyenglish.model.Profile
 
 class ProfileAdapter(val profilePost: ArrayList<Profile>) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
