@@ -104,8 +104,7 @@ class ProfileFragment : Fragment() {
                     if (imageURI != null) {
                         // Firebase Storage referansı ve benzersiz isim oluştur
                         val reference = storage.reference
-                        val privateNumber = UUID.randomUUID()
-                        val imageName = "${privateNumber}.jpg"
+                        val imageName = "profileImage.jpg"
 
                         // Kullanıcının UID'sini al
                         val uid = FirebaseAuth.getInstance().currentUser!!.uid
