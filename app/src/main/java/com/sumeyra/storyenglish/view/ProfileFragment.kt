@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -36,7 +37,6 @@ import com.google.firebase.storage.storage
 import com.sumeyra.storyenglish.adapter.ProfileAdapter
 import com.sumeyra.storyenglish.databinding.ProfileFragmentBinding
 import com.sumeyra.storyenglish.model.Profile
-import java.net.URI
 import java.util.UUID
 
 class ProfileFragment : Fragment() {
@@ -48,14 +48,13 @@ class ProfileFragment : Fragment() {
     private lateinit var adapter : ProfileAdapter
     val postProfileList = ArrayList<Profile>()
 
+
+
+
     private lateinit var goToGalleryLauncher: ActivityResultLauncher<Intent>
 
     var selectedBitmap : Bitmap? = null
     private var selectedImageUrl: String? = null
-
-
-
-
 
     private var _binding : ProfileFragmentBinding ?= null
     private val binding get() = requireNotNull(_binding)
@@ -90,6 +89,10 @@ class ProfileFragment : Fragment() {
         adapter = ProfileAdapter(postProfileList)
         binding.profileRecyclerview.adapter = adapter
 
+        setImage()
+
+    }
+    private fun setImage(){
         // Galeri başlatıcı için sonuç kaydını yap ve sonuçları işle
         goToGalleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -148,26 +151,6 @@ class ProfileFragment : Fragment() {
                                         println(error)
                                     }
 
-                                    //Firebaseden veriyi çekme
-                                    db.collection("Users").addSnapshotListener { snapshot, error ->
-                                        if(error != null){
-                                            Toast.makeText(requireContext(),error.localizedMessage,Toast.LENGTH_SHORT).show()
-                                        }else{
-                                            if (snapshot != null && snapshot.isEmpty){
-                                                val document = snapshot.documents
-                                                if (auth.currentUser != null){
-                                                    val currentUserUid = auth.currentUser!!.uid
-                                                    if (currentUserUid  == document.toString()){
-                                                        val profileImageUrl = document.get(2) as Uri
-                                                        binding.profileImage.setImageURI(profileImageUrl)
-                                                    }
-                                                }
-
-                                            }
-                                        }
-
-                                    }
-
                                 }
 
                             }
@@ -198,8 +181,9 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
-
     }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -311,7 +295,6 @@ class ProfileFragment : Fragment() {
     }
 
 
-
     private fun getUser(){
         val currentUser = auth.currentUser
         if (currentUser != null) {
@@ -357,6 +340,7 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
 
 
 }
