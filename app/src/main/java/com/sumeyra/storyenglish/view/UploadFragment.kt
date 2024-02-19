@@ -36,6 +36,7 @@ class uploadFragment : Fragment() {
         auth = Firebase.auth
         db = Firebase.firestore
         storage = Firebase.storage
+
     }
 
     override fun onCreateView(

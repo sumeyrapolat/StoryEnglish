@@ -1,36 +1,33 @@
 package com.sumeyra.storyenglish.adapter
 
 
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.sumeyra.storyenglish.R
 import com.sumeyra.storyenglish.databinding.FeedRowBinding
 import com.sumeyra.storyenglish.model.Post
+import com.sumeyra.storyenglish.view.AnotherUserFragment
 
-class FeedAdapter(val postList: ArrayList<Post>) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
-
+class FeedAdapter(private val context: Context, val postList: ArrayList<Post>) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
+    private lateinit var auth : FirebaseAuth
     inner class FeedViewHolder(val binding : FeedRowBinding) : RecyclerView.ViewHolder(binding.root) {
-    init {
-        binding.recyclerRowUsername.setOnClickListener {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                // Tıklanan öğenin pozisyonunu alabilir ve istediğiniz işlemleri yapabilirsiniz
-                val clickedPost = postList[position]
-                // Tıklanan öğe ile ilgili işlemleri yapabilirsiniz
-                // Örneğin: Tıklanan öğenin detaylarına gitme gibi
-                // clickedPost.userName, clickedPost.words, vb. şeklinde öğelere erişebilirsiniz
 
-                //burada başka bir fragmente gitmek istiyorum
-            }
+        init {
+            auth = Firebase.auth
         }
     }
-
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val binding = FeedRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -51,8 +48,12 @@ class FeedAdapter(val postList: ArrayList<Post>) : RecyclerView.Adapter<FeedAdap
 
         Glide.with(holder.itemView.context).load(post.imageUrl).into(holder.binding.userImageView)
 
+        holder.binding.recyclerRowUsername.setOnClickListener {view->
 
+            val navController = Navigation.findNavController(view)
+            navController.navigate(R.id.action_feedFragment_to_anotherUser)
 
+        }
     }
 
 }

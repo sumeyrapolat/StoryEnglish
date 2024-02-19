@@ -88,7 +88,7 @@ class feedFragment: Fragment() {
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.feedRecyclerView.layoutManager = layoutManager
-        adapter = FeedAdapter(postList)
+        adapter = FeedAdapter(requireContext(),postList)
         binding.feedRecyclerView.adapter = adapter
 
 

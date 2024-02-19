@@ -14,10 +14,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
 import com.sumeyra.storyenglish.adapter.AnotherUserAdapter
 import com.sumeyra.storyenglish.databinding.AnotherUserFragmentBinding
-import com.sumeyra.storyenglish.databinding.ProfileFragmentBinding
 import com.sumeyra.storyenglish.model.Profile
 
-class AnotherUser : Fragment() {
+class AnotherUserFragment : Fragment() {
     private lateinit var auth : FirebaseAuth
     private lateinit var db : FirebaseFirestore
     private lateinit var storage : FirebaseStorage
@@ -34,6 +33,8 @@ class AnotherUser : Fragment() {
         db = Firebase.firestore
         storage = Firebase.storage
 
+
+
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,11 +43,12 @@ class AnotherUser : Fragment() {
     ): View {
         _binding = AnotherUserFragmentBinding.inflate(inflater,container,false)
         val view = binding.root
+
+
+
         return view
     }
 
-    private fun getUserInfo(){
-
+    private fun getImage(){
     }
-
 }

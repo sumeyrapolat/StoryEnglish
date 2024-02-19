@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_feedFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_anotherUser"
+            app:destination="@id/anotherUser" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
@@ -54,4 +57,11 @@
         android:name="com.sumeyra.storyenglish.view.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/profile_fragment"/>
+    <fragment
+        android:id="@+id/anotherUser"
+        android:name="com.sumeyra.storyenglish.view.AnotherUserFragment"
+        android:label="AnotherUser"
+        tools:layout="@layout/another_user_fragment">
+
+    </fragment>
 </navigation>
