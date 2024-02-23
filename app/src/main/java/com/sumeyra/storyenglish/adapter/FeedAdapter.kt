@@ -1,6 +1,7 @@
 package com.sumeyra.storyenglish.adapter
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -19,14 +20,12 @@ import com.sumeyra.storyenglish.R
 import com.sumeyra.storyenglish.databinding.FeedRowBinding
 import com.sumeyra.storyenglish.model.Post
 import com.sumeyra.storyenglish.view.AnotherUserFragment
+import com.sumeyra.storyenglish.view.FeedFragmentDirections
 
 class FeedAdapter(private val context: Context, val postList: ArrayList<Post>) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
-    private lateinit var auth : FirebaseAuth
+    private val auth: FirebaseAuth = Firebase.auth
     inner class FeedViewHolder(val binding : FeedRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            auth = Firebase.auth
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
@@ -50,10 +49,32 @@ class FeedAdapter(private val context: Context, val postList: ArrayList<Post>) :
 
         holder.binding.recyclerRowUsername.setOnClickListener {view->
 
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_feedFragment_to_anotherUser)
+            val bundle = Bundle()
+            bundle.putString("userImage", post.imageUrl)
+            bundle.putString("userName", post.userName)
+            bundle.putString("words",post.words)
+            bundle.putString("storyHeader", post.storyHeader)
+            bundle.putString("story", post.story)
+            bundle.putString("userEmail", post.userEmail)
 
-        }
+            val username = post.userName
+
+            if(username == auth.currentUser!!.toString() ){
+                val navController = Navigation.findNavController(view)
+                navController.navigate(R.id.action_feedFragment_to_profileFragment)
+            }else {
+                val navController = Navigation.findNavController(view)
+                navController.navigate(R.id.action_feedFragment_to_anotherUserFragment, bundle)
+            }
+
+    }
+
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newPostList: List<Post>) {
+        postList.clear()
+        postList.addAll(newPostList)
+        notifyDataSetChanged()
     }
 
 }
