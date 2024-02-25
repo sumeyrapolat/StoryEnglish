@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sumeyra.storyenglish.databinding.ProfileRowBinding
 import com.sumeyra.storyenglish.model.Profile
 
-class ProfileAdapter(val profilePost: ArrayList<Profile>) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
+class ProfileAdapter(val profileList: ArrayList<Profile>) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
     class ProfileViewHolder( val binding: ProfileRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -17,13 +17,13 @@ class ProfileAdapter(val profilePost: ArrayList<Profile>) : RecyclerView.Adapter
     }
 
     override fun getItemCount(): Int {
-        return profilePost.size
+        return profileList.size
     }
 
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
-        holder.binding.profileStoryHeader.text = profilePost.get(position).storyHeader
-        holder.binding.profileStoryText.text = profilePost.get(position).story
-        holder.binding.profileWordText.text = profilePost.get(position).words
+        holder.binding.profileStoryHeader.text = profileList.get(position).storyHeader
+        holder.binding.profileStoryText.text = profileList.get(position).story
+        holder.binding.profileWordText.text = profileList.get(position).words
     }
 }
 

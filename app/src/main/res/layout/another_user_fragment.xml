@@ -39,10 +39,11 @@
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/anotherUserleUserEmailText"
+                android:id="@+id/anotherUserEmailText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/darkText"
+                android:layout_marginBottom="5dp"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif-medium"
                 android:text="TextView" />

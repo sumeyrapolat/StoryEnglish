@@ -84,6 +84,8 @@ class ProfileFragment : Fragment() {
         getStoryFromFirebase()
 
 
+
+
         val layoutManager = LinearLayoutManager(requireContext())
         binding.profileRecyclerview.layoutManager = layoutManager
         adapter = ProfileAdapter(postProfileList)
@@ -311,13 +313,14 @@ class ProfileFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getStoryFromFirebase() {
-        db.collection("Posts").orderBy("date" , Query.Direction.DESCENDING).addSnapshotListener { snapshot, error ->
+        val email = auth.currentUser!!.email.toString()
+        db.collection("Posts").document(email).collection("userPostInfo").orderBy("date" , Query.Direction.DESCENDING).addSnapshotListener { snapshot, error ->
             if (error != null) {
                 val context: Context = requireContext()
                 Toast.makeText(context , error.localizedMessage, Toast.LENGTH_SHORT).show()
             }else {
-                if (snapshot != null && !snapshot.isEmpty){
-                    val documents = snapshot.documents
+                    if (snapshot != null && !snapshot.isEmpty){
+                        val documents = snapshot.documents
 
                     postProfileList.clear()
 
@@ -333,7 +336,7 @@ class ProfileFragment : Fragment() {
                         }
                     }
 
-                    adapter.notifyDataSetChanged()
+                        adapter.notifyDataSetChanged()
                 }
 
             }

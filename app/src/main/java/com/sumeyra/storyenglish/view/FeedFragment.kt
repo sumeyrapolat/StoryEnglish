@@ -86,10 +86,13 @@ class FeedFragment : Fragment(){
     ): View{
         _binding = FeedFragmentBinding.inflate(inflater,container,false)
         val view = binding.root
+
         return view
 
 
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -103,8 +106,9 @@ class FeedFragment : Fragment(){
             adapter.updateData(posts)
         })
 
+
         // ViewModel'den verileri al ve Firebase'den çek
-        feedViewModel.getDataFromFirebase()
+        feedViewModel.getAllStories()
 
     }
 

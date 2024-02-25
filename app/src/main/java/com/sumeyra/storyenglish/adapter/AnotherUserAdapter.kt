@@ -1,14 +1,12 @@
 package com.sumeyra.storyenglish.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sumeyra.storyenglish.databinding.AnotherUserRowBinding
-import com.sumeyra.storyenglish.model.Post
-import com.sumeyra.storyenglish.model.Profile
-
-class AnotherUserAdapter(val postList: ArrayList<Post>) : RecyclerView.Adapter<AnotherUserAdapter.AnotherViewHolder>() {
+import com.sumeyra.storyenglish.model.AnotherUser
+class AnotherUserAdapter(val anotherUserList: ArrayList<AnotherUser>) : RecyclerView.Adapter<AnotherUserAdapter.AnotherViewHolder>() {
     class AnotherViewHolder( val binding: AnotherUserRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -19,12 +17,16 @@ class AnotherUserAdapter(val postList: ArrayList<Post>) : RecyclerView.Adapter<A
     }
 
     override fun getItemCount(): Int {
-        return postList.size
+        return anotherUserList.size
     }
 
     override fun onBindViewHolder(holder: AnotherViewHolder, position: Int) {
-        holder.binding.anotherUserProfileStoryHeader.text = postList.get(position).storyHeader
-        holder.binding.anotherUserProfileStoryText.text = postList.get(position).story
-        holder.binding.anotherUserProfileWordText.text = postList.get(position).words
+
+        holder.binding.anotherUserProfileStoryHeader.text = anotherUserList.get(position).storyHeader
+        holder.binding.anotherUserProfileStoryText.text = anotherUserList.get(position).story
+        holder.binding.anotherUserProfileWordText.text = anotherUserList.get(position).words
     }
+
+
+
 }

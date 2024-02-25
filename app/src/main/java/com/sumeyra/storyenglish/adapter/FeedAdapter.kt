@@ -57,6 +57,7 @@ class FeedAdapter(private val context: Context, val postList: ArrayList<Post>) :
             bundle.putString("story", post.story)
             bundle.putString("userEmail", post.userEmail)
 
+
             val username = post.userName
 
             if(username == auth.currentUser!!.toString() ){
