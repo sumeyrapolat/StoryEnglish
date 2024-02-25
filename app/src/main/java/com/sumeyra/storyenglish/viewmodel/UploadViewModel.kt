@@ -3,11 +3,13 @@ package com.sumeyra.storyenglish.viewmodel
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.sumeyra.storyenglish.R
 import com.sumeyra.storyenglish.view.UploadFragmentDirections
 
 class UploadViewModel : ViewModel() {
@@ -33,19 +35,20 @@ class UploadViewModel : ViewModel() {
         db.collection("Posts").document(email).collection("userPostInfo").add(postMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 onSuccess.invoke()
+                db.collection("Feed").add(postMap).addOnCompleteListener { tasks->
+                    if (tasks.isSuccessful){
+                        onSuccess.invoke()
+                    }
+                }.addOnFailureListener { error->
+                    onFailure.invoke(error.localizedMessage ?: "Unknown error occurred")
+
+                }
+
             }
         }.addOnFailureListener { error ->
             onFailure.invoke(error.localizedMessage ?: "Unknown error occurred")
         }
 
-        db.collection("Feed").add(postMap).addOnCompleteListener { task->
-            if (task.isSuccessful){
-                onSuccess.invoke()
-            }
-        }.addOnFailureListener { error->
-            onFailure.invoke(error.localizedMessage ?: "Unknown error occurred")
-
-        }
     }
 
 }

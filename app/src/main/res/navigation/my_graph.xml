@@ -22,29 +22,11 @@
         android:label="logInFragment"
         tools:layout="@layout/log_in_fragment">
         <action
-            android:id="@+id/action_logInFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
-        <action
             android:id="@+id/action_logInFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/feedFragment"
-        android:name="com.sumeyra.storyenglish.view.FeedFragment"
-        android:label="feedFragment"
-        tools:layout="@layout/feed_fragment">
         <action
-            android:id="@+id/action_feedFragment_to_uploadFragment"
-            app:destination="@id/uploadFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_anotherUserFragment"
-            app:destination="@id/anotherUserFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            android:id="@+id/action_logInFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/anotherUserFragment"
@@ -54,9 +36,6 @@
         <action
             android:id="@+id/action_anotherUserFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
-        <action
-            android:id="@+id/action_anotherUserFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -64,11 +43,11 @@
         android:label="ProfileFragment"
         tools:layout="@layout/profile_fragment">
         <action
-            android:id="@+id/action_profileFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
-        <action
             android:id="@+id/action_profileFragment_to_anotherUserFragment"
             app:destination="@id/anotherUserFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
@@ -78,5 +57,23 @@
         <action
             android:id="@+id/action_uploadFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.sumeyra.storyenglish.view.FeedFragment"
+        android:label="FeedFragment"
+        tools:layout="@layout/feed_fragment">
+        <action
+            android:id="@+id/action_feedFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_anotherUserFragment"
+            app:destination="@id/anotherUserFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_uploadFragment"
+            app:destination="@id/uploadFragment" />
     </fragment>
 </navigation>

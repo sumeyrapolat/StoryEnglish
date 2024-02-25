@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
@@ -65,6 +66,7 @@ class UploadFragment : Fragment(){
         getImageUrl()
 
 
+
     }
 
     private fun getImageUrl(){
@@ -80,20 +82,30 @@ class UploadFragment : Fragment(){
             val storyHeader = binding.storyHeader.text.toString()
             val story = binding.storyText.text.toString()
 
+
             uploadViewModel.uploadPost(words, storyHeader, story, imageUrl, {
                 // Başarılı yükleme durumunda yapılacaklar
-                val action = UploadFragmentDirections.actionUploadFragmentToFeedFragment()
-                findNavController().navigate(action)
+                goToFeed()
+
             }, { errorMessage ->
                 // Hata durumunda yapılacaklar
+                println(errorMessage)
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
             })
+           goToFeed()
 
         }.addOnFailureListener { error ->
             val errorMessage = error.localizedMessage ?: "Unknown error occurred"
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    fun goToFeed(){
+        binding.shareButton.setOnClickListener { view->
+            val navController = Navigation.findNavController(view)
+            navController.navigate(R.id.action_uploadFragment_to_feedFragment)
+        }
     }
 
 

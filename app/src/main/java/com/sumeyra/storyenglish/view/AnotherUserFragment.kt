@@ -83,8 +83,10 @@ class AnotherUserFragment : Fragment() {
 
         val userName = arguments?.getString("userName") ?: ""
         if (userName == auth.currentUser!!.displayName){
-            val action = AnotherUserFragmentDirections.actionAnotherUserFragmentToProfileFragment()
-            findNavController().navigate(action)
+            binding.anotherUserProfileUserNameText.text = userName
+            /*val action = AnotherUserFragmentDirections.actionAnotherUserFragmentToProfileFragment()
+            findNavController().navigate(action)*/
+
         }else{
             binding.anotherUserProfileUserNameText.text = userName
         }
